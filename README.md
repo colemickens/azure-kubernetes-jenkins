@@ -26,11 +26,10 @@
 
 3. Configure Jenkins (Plugins)
 
-	First, allow Jenkins to update the existing plugins that are out-of-date.
-
-	Second, install the `multijob` plugin.
-
-	Third (optional), install the `configuration slicing` plugin. We will use this to disable all jobs and then we will manually active the Azure jobs.
+	i. update existing plugins
+	ii. install 'multijob'
+	iii. install 'configuration slicing'
+	iv. install 'git scm'
 
 
 4. Install the Jenkins Job Builder defined jobs.
@@ -43,6 +42,28 @@
 	git clone https://github.com/colemickens/kubernetes.git
 	cd kubernetes/hack/jenkins
 	touch jenkins_jobs.ini
-	run ./update-jobs.sh hack/jenkins/job-configs;hack/jenkins/kubernetes-jenkins;hack/jenkins/kubernetes-jenkins-pull
+	sudo ./update-jobs.sh hack/jenkins/job-configs;hack/jenkins/kubernetes-jenkins-azure
 	```
 
+5. Mark some nodes as 'build' for the build jobs to work
+
+
+6. Login into docker on the machines
+
+```shell
+$ sudo -s
+# su jenkins
+$ docker login
+```
+
+
+7. Put azure service principal credentials on the machines:
+`/var/lib/jenkins/azure_client_id`
+and `/var/lib/jenkins/azure_client_secret`
+
+
+8. Change /etc/default/jenkins to have jenkins live on /mnt which is the data drive
+
+9. Modify docker storage to be on /mnt
+
+9. Change the user config so that `jenkin`s home directory is /mnt/jenkins

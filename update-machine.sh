@@ -8,3 +8,6 @@ sudo mkdir -p /etc/apt/sources.list.d
 echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt-get update
 sudo apt-get install -y docker-engine
+sudo apt-get install -y golang
+sudo apt-get install -y make jq
+sudo usermod -a -G docker jenkins
